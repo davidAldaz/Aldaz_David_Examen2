@@ -30,6 +30,8 @@ public class LoginActivity_DIAS extends AppCompatActivity {
 
     private UserClient_DIAS user;
 
+    private String validatePasswd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +39,20 @@ public class LoginActivity_DIAS extends AppCompatActivity {
         InitializeViewComponents();
     }
     private void Login(){
-            /////7
-            warningTextView.setText("");
-            LoginTask loginTask = new LoginTask();
-            loginTask.execute();
+            this.validatePasswd = passwdEditText.getText().toString();
+            if(validatePasswd.length() < 6 || validatePasswd.length() > 10){
+                warningTextView.setText("La contraseña debe contener \n mínimo 6 caracteres y máximo 10");
+            }else if(!validatePasswd.matches(".*[!@#$%^&*+=?-].*")) {
+                warningTextView.setText("Debe ingresar al menos un caracter especial");
+            }else if(!validatePasswd.matches(".*\\d.*")) {
+                warningTextView.setText("Debe ingresar al menos un número");
+            }else if(!validatePasswd.matches(".*[a-z].*")) {
+                warningTextView.setText("Debe contener una letra minúscula");
+            }else
+                warningTextView.setText("");
+                LoginTask loginTask = new LoginTask();
+                loginTask.execute();
+            }
     }
     private Boolean LoginAdmin(){
             warningTextView.setText("");

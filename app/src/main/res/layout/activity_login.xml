@@ -43,7 +43,7 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
-        app:layout_constraintVertical_bias="0.147" />
+        app:layout_constraintVertical_bias="0.246" />
 
     <TextView
         android:id="@+id/textView3"
@@ -74,7 +74,7 @@
     <TextView
         android:id="@+id/textViewLoginFailed"
         android:layout_width="356dp"
-        android:layout_height="27dp"
+        android:layout_height="47dp"
         android:text=""
         android:textColor="#EF0505"
         android:textSize="20sp"
