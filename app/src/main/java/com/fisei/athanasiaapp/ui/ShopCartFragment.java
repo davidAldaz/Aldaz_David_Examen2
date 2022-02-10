@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.fisei.athanasiaapp.R;
 import com.fisei.athanasiaapp.adapters.ShopItemArrayAdapter;
-import com.fisei.athanasiaapp.dialog.CheckoutDialogFragment;
+import com.fisei.athanasiaapp.dialog.CheckoutDialogFragment_DIAS;
 import com.fisei.athanasiaapp.models.SaleDetails;
 import com.fisei.athanasiaapp.models.SaleRequest;
 import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
@@ -93,7 +93,7 @@ public class ShopCartFragment extends Fragment {
     }
     private void OpenDialog(){
         Bundle bundleDialog = new Bundle();
-        CheckoutDialogFragment dialog = new CheckoutDialogFragment();
+        CheckoutDialogFragment_DIAS dialog = new CheckoutDialogFragment_DIAS();
         dialog.setTargetFragment(getTargetFragment(), 0);
         bundleDialog.putString("title", "Are you sure?");
         dialog.show(this.getChildFragmentManager(), "Quiz Results");

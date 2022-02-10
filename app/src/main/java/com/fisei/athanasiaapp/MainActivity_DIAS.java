@@ -3,7 +3,7 @@ package com.fisei.athanasiaapp;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity_DIAS extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

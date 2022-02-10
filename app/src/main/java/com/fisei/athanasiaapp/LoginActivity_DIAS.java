@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity_DIAS extends AppCompatActivity {
 
     private EditText emailEditText;
     private EditText passwdEditText;
@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         return true;
     }
     private void SignUp(){
-        Intent register = new Intent(this, SingUpActivity.class);
+        Intent register = new Intent(this, SingUpActivity_DIAS.class);
         startActivity(register);
     }
     private class LoginTask extends AsyncTask<URL, Void, JSONObject> {
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void StartAthanasiaActivity(){
-        Intent loginSuccesful = new Intent(this, AthanasiaActivity.class);
+        Intent loginSuccesful = new Intent(this, AthanasiaActivity_DIAS.class);
         startActivity(loginSuccesful);
         finish();
     }
