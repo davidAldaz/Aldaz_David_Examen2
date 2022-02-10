@@ -86,13 +86,32 @@ public class SingUpActivity_DIAS extends AppCompatActivity {
             errorTextView.setText("Debe contener una letra mayúscula");
         }else if(validateCedula.length() < 10 || validateCedula.length() > 10) {
             errorTextView.setText("Ingrese una cédula válida");
-        }else if(validateCedula.matches(".")){
+        }else if(!validateCedula(firstCharCed)){
             errorTextView.setText("Número de cédula no válido");
         }else {
             errorTextView.setText("Validado");
             //errorTextView.setText("");
             //SignUpTask signUpTask = new SignUpTask();
             //signUpTask.execute();
+        }
+    }
+    private boolean validateCedula(String characters){
+        if(     characters.matches("01") || characters.matches("02") ||
+                characters.matches("03") || characters.matches("04") ||
+                characters.matches("05") || characters.matches("06") ||
+                characters.matches("07") || characters.matches("08") ||
+                characters.matches("09") || characters.matches("10") ||
+                characters.matches("11") || characters.matches("12") ||
+                characters.matches("13") || characters.matches("14") ||
+                characters.matches("15") || characters.matches("16") ||
+                characters.matches("17") || characters.matches("18") ||
+                characters.matches("19") || characters.matches("20") ||
+                characters.matches("21") || characters.matches("22") ||
+                characters.matches("23") || characters.matches("24")
+                    ){
+            return true;
+        }else{
+            return false;
         }
     }
     private void StartLoginActivity(){
