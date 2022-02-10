@@ -11,9 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fisei.athanasiaapp.models.ResponseAthanasia;
-import com.fisei.athanasiaapp.objects.UserClient;
-import com.fisei.athanasiaapp.services.UserClientService;
+import com.fisei.athanasiaapp.models.ResponseAthanasia_DIAS;
+import com.fisei.athanasiaapp.objects.UserClient_DIAS;
+import com.fisei.athanasiaapp.services.UserClientService_DIAS;
 
 import org.json.JSONObject;
 
@@ -27,7 +27,7 @@ public class SingUpActivity_DIAS extends AppCompatActivity {
     private EditText editTextPassword;
     private TextView errorTextView;
     private Button buttonSignUp;
-    private ResponseAthanasia responseTask = new ResponseAthanasia(false, "");
+    private ResponseAthanasia_DIAS responseTask = new ResponseAthanasia_DIAS(false, "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +41,10 @@ public class SingUpActivity_DIAS extends AppCompatActivity {
     private class SignUpTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... urls) {
-            UserClient newUser = new UserClient(0, editTextName.getText().toString(),
+            UserClient_DIAS newUser = new UserClient_DIAS(0, editTextName.getText().toString(),
                     editTextEmail.getText().toString() + "@ath.com",
                     editTextCedula.getText().toString(), "");
-            responseTask = UserClientService.SignUpNewUser(newUser, editTextPassword.getText().toString());
+            responseTask = UserClientService_DIAS.SignUpNewUser(newUser, editTextPassword.getText().toString());
             return null;
         }
         @Override

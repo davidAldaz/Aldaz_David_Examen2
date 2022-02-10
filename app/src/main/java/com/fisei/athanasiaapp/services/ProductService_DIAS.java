@@ -1,8 +1,7 @@
 package com.fisei.athanasiaapp.services;
 
-import com.fisei.athanasiaapp.objects.OrderDetail;
+import com.fisei.athanasiaapp.objects.Product_DIAS;
 import com.fisei.athanasiaapp.utilities.URLs;
-import com.fisei.athanasiaapp.objects.Product;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,9 +16,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductService {
-    public static List<Product> GetAllProducts(){
-        List<Product> productList = new ArrayList<>();
+public class ProductService_DIAS {
+    public static List<Product_DIAS> GetAllProducts(){
+        List<Product_DIAS> productDIASList = new ArrayList<>();
         HttpURLConnection connection = null;
         try{
             URL url = new URL(URLs.PRODUCTS);
@@ -37,7 +36,7 @@ public class ProductService {
                 JSONArray list = data.getJSONArray("data");
                 for(int i = 0; i < list.length(); ++i){
                     JSONObject products = list.getJSONObject(i);
-                    productList.add(new Product(
+                    productDIASList.add(new Product_DIAS(
                             products.getInt("id"),
                             products.getString("name"),
                             products.getString("genre"),
@@ -54,10 +53,10 @@ public class ProductService {
                 connection.disconnect();
             }
         }
-        return productList;
+        return productDIASList;
     }
-    public static Product GetSpecifiedProductByID(int id){
-        Product product = new Product(0, "", "", 0, 0, 0, "");
+    public static Product_DIAS GetSpecifiedProductByID(int id){
+        Product_DIAS productDIAS = new Product_DIAS(0, "", "", 0, 0, 0, "");
         HttpURLConnection connection = null;
         try{
             URL url = new URL(URLs.PRODUCTS + "/" + id);
@@ -75,7 +74,7 @@ public class ProductService {
                 JSONArray list = data.getJSONArray("data");
                 for(int i = 0; i < list.length(); ++i){
                     JSONObject products = list.getJSONObject(i);
-                    product = new Product(
+                    productDIAS = new Product_DIAS(
                             products.getInt("id"),
                             products.getString("name"),
                             products.getString("genre"),
@@ -92,7 +91,7 @@ public class ProductService {
                 connection.disconnect();
             }
         }
-        return product;
+        return productDIAS;
     }
 
 }

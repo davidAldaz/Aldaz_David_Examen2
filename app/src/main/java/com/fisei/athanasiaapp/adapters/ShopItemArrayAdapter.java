@@ -14,16 +14,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.fisei.athanasiaapp.R;
-import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
-import com.fisei.athanasiaapp.objects.ShopCartItem;
-import com.fisei.athanasiaapp.services.ImageService;
+import com.fisei.athanasiaapp.objects.AthanasiaGlobal_DIAS;
+import com.fisei.athanasiaapp.objects.ShopCartItem_DIAS;
+import com.fisei.athanasiaapp.services.ImageService_DIAS;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ShopItemArrayAdapter extends ArrayAdapter<ShopCartItem> {
+public class ShopItemArrayAdapter extends ArrayAdapter<ShopCartItem_DIAS> {
     private static class ViewHolder{
         ImageView shopCartItemImage;
         TextView shopCartItemName;
@@ -34,11 +34,11 @@ public class ShopItemArrayAdapter extends ArrayAdapter<ShopCartItem> {
         Button shopCartDeleteItem;
     }
     private Map<String, Bitmap> bitmaps = new HashMap<>();
-    public ShopItemArrayAdapter(@NonNull Context context, List<ShopCartItem> itemList) {
+    public ShopItemArrayAdapter(@NonNull Context context, List<ShopCartItem_DIAS> itemList) {
         super(context, -1, itemList);
     }
     public View getView(int positon, View convertView, ViewGroup parent){
-        ShopCartItem item = getItem(positon);
+        ShopCartItem_DIAS item = getItem(positon);
         ViewHolder viewHolder;
         if(convertView == null){
             viewHolder = new ViewHolder();
@@ -76,7 +76,7 @@ public class ShopItemArrayAdapter extends ArrayAdapter<ShopCartItem> {
         }
         @Override
         protected Bitmap doInBackground(String... params){
-            Bitmap bitmap = ImageService.GetImageByURL(params[0]);
+            Bitmap bitmap = ImageService_DIAS.GetImageByURL(params[0]);
             bitmaps.put(params[0], bitmap);
             return bitmap;
         }
@@ -87,7 +87,7 @@ public class ShopItemArrayAdapter extends ArrayAdapter<ShopCartItem> {
     }
 
     private void AddQty(int id, int qty){
-        for (ShopCartItem item: AthanasiaGlobal.SHOPPING_CART) {
+        for (ShopCartItem_DIAS item: AthanasiaGlobal_DIAS.SHOPPING_CART) {
             if(item.Id == id && item.Quantity < qty){
                 item.Quantity++;
                 break;
@@ -96,7 +96,7 @@ public class ShopItemArrayAdapter extends ArrayAdapter<ShopCartItem> {
         UpdateArrayAdapter();
     }
     private void ReduceQty(int id){
-        for (ShopCartItem item: AthanasiaGlobal.SHOPPING_CART) {
+        for (ShopCartItem_DIAS item: AthanasiaGlobal_DIAS.SHOPPING_CART) {
             if(item.Id == id && item.Quantity > 1){
                 item.Quantity--;
                 break;
@@ -105,18 +105,18 @@ public class ShopItemArrayAdapter extends ArrayAdapter<ShopCartItem> {
         UpdateArrayAdapter();
     }
     private void DeleteFromCart(int id){
-        for (int x = 0; x < AthanasiaGlobal.SHOPPING_CART.size(); x++){
-            if (AthanasiaGlobal.SHOPPING_CART.get(x).Id == id){
-                AthanasiaGlobal.SHOPPING_CART.remove(x);
+        for (int x = 0; x < AthanasiaGlobal_DIAS.SHOPPING_CART.size(); x++){
+            if (AthanasiaGlobal_DIAS.SHOPPING_CART.get(x).Id == id){
+                AthanasiaGlobal_DIAS.SHOPPING_CART.remove(x);
                 break;
             }
         }
         UpdateArrayAdapter();
     }
     public void UpdateArrayAdapter(){
-        List<ShopCartItem> list = new ArrayList<>();
+        List<ShopCartItem_DIAS> list = new ArrayList<>();
         this.clear();
-        list = AthanasiaGlobal.SHOPPING_CART;
+        list = AthanasiaGlobal_DIAS.SHOPPING_CART;
         this.addAll(list);
         this.notifyDataSetChanged();
     }

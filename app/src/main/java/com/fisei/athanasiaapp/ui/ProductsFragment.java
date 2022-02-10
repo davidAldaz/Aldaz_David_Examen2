@@ -12,8 +12,8 @@ import android.widget.ListView;
 
 import com.fisei.athanasiaapp.R;
 import com.fisei.athanasiaapp.adapters.ProductArrayAdapter;
-import com.fisei.athanasiaapp.objects.Product;
-import com.fisei.athanasiaapp.services.ProductService;
+import com.fisei.athanasiaapp.objects.Product_DIAS;
+import com.fisei.athanasiaapp.services.ProductService_DIAS;
 
 import org.json.JSONObject;
 
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class ProductsFragment extends Fragment {
 
-    private List<Product> productList = new ArrayList<>();
+    private List<Product_DIAS> productDIASList = new ArrayList<>();
     private ProductArrayAdapter productArrayAdapter;
 
     private ListView listView;
@@ -45,7 +45,7 @@ public class ProductsFragment extends Fragment {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_products, container, false);
         listView = (ListView) view.findViewById(R.id.listViewProductFragment);
-        productArrayAdapter = new ProductArrayAdapter(getContext(), QuitProductsWith0Qty(productList));
+        productArrayAdapter = new ProductArrayAdapter(getContext(), QuitProductsWith0Qty(productDIASList));
         GetProductsTask getProductsTask = new GetProductsTask();
         getProductsTask.execute();
 
@@ -55,20 +55,20 @@ public class ProductsFragment extends Fragment {
     class GetProductsTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... params) {
-            productList.clear();
-            productList = ProductService.GetAllProducts();
-            productList = QuitProductsWith0Qty(productList);
+            productDIASList.clear();
+            productDIASList = ProductService_DIAS.GetAllProducts();
+            productDIASList = QuitProductsWith0Qty(productDIASList);
             return null;
         }
         @Override
         protected void onPostExecute(JSONObject jsonObject){
             productArrayAdapter.clear();
-            productArrayAdapter.addAll(QuitProductsWith0Qty(productList));
+            productArrayAdapter.addAll(QuitProductsWith0Qty(productDIASList));
             productArrayAdapter.notifyDataSetChanged();
             listView.setAdapter(productArrayAdapter);
         }
     }
-    private List<Product> QuitProductsWith0Qty(List<Product> list){
+    private List<Product_DIAS> QuitProductsWith0Qty(List<Product_DIAS> list){
         for (int x = 0; x < list.size(); x++) {
                 if (list.get(x).quantity == 0) {
                     list.remove(x);

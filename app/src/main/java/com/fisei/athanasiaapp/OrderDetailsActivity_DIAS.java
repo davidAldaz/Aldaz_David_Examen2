@@ -8,12 +8,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fisei.athanasiaapp.adapters.OrderDetailsArrayAdapter;
-import com.fisei.athanasiaapp.adapters.ProductArrayAdapter;
-import com.fisei.athanasiaapp.objects.Order;
-import com.fisei.athanasiaapp.objects.OrderDetail;
-import com.fisei.athanasiaapp.objects.Product;
-import com.fisei.athanasiaapp.services.ProductService;
-import com.fisei.athanasiaapp.services.SaleService;
+import com.fisei.athanasiaapp.objects.OrderDetail_DIAS;
+import com.fisei.athanasiaapp.objects.Product_DIAS;
+import com.fisei.athanasiaapp.services.ProductService_DIAS;
+import com.fisei.athanasiaapp.services.SaleService_DIAS;
 import com.fisei.athanasiaapp.utilities.Utils;
 
 import org.json.JSONObject;
@@ -35,8 +33,8 @@ public class OrderDetailsActivity_DIAS extends AppCompatActivity {
     private OrderDetailsArrayAdapter orderArrayAdapter;
 
     Bundle bundle;
-    private List<OrderDetail> orderDetails = new ArrayList<>();
-    private List<Product> saleDetails;
+    private List<OrderDetail_DIAS> orderDetailDIAS = new ArrayList<>();
+    private List<Product_DIAS> saleDetails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +43,7 @@ public class OrderDetailsActivity_DIAS extends AppCompatActivity {
         bundle = getIntent().getExtras();
         orderID = bundle.getInt("orderID");
         InitializeViewComponents();
-        orderArrayAdapter = new OrderDetailsArrayAdapter(this, orderDetails);
+        orderArrayAdapter = new OrderDetailsArrayAdapter(this, orderDetailDIAS);
 
         GetOrderDetailsTask getOrderDetailsTask = new GetOrderDetailsTask();
         getOrderDetailsTask.execute();
@@ -54,7 +52,7 @@ public class OrderDetailsActivity_DIAS extends AppCompatActivity {
     class GetOrderDetailsTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... params) {
-            saleDetails = SaleService.GetSalesDetailsByID(orderID);
+            saleDetails = SaleService_DIAS.GetSalesDetailsByID(orderID);
             return null;
         }
         @Override
@@ -66,8 +64,8 @@ public class OrderDetailsActivity_DIAS extends AppCompatActivity {
     class GetProductTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... params) {
-            for (Product item: saleDetails) {
-                orderDetails.add(ConvertProductToOrderDetail(ProductService.GetSpecifiedProductByID(item.id), item.quantity));
+            for (Product_DIAS item: saleDetails) {
+                orderDetailDIAS.add(ConvertProductToOrderDetail(ProductService_DIAS.GetSpecifiedProductByID(item.id), item.quantity));
             }
             return null;
         }
@@ -78,8 +76,8 @@ public class OrderDetailsActivity_DIAS extends AppCompatActivity {
             //orderDetails.clear();
         }
     }
-    private OrderDetail ConvertProductToOrderDetail(Product product, int qty){
-        return new OrderDetail(product.name, qty, product.unitPrice, product.imageURL);
+    private OrderDetail_DIAS ConvertProductToOrderDetail(Product_DIAS productDIAS, int qty){
+        return new OrderDetail_DIAS(productDIAS.name, qty, productDIAS.unitPrice, productDIAS.imageURL);
     }
     private void InitializeViewComponents(){
         textViewOrderID = (TextView) findViewById(R.id.textViewOrderInfoID);

@@ -12,12 +12,9 @@ import android.widget.ListView;
 
 import com.fisei.athanasiaapp.R;
 import com.fisei.athanasiaapp.adapters.OrderArrayAdapter;
-import com.fisei.athanasiaapp.adapters.ProductArrayAdapter;
-import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
-import com.fisei.athanasiaapp.objects.Order;
-import com.fisei.athanasiaapp.objects.Product;
-import com.fisei.athanasiaapp.services.ProductService;
-import com.fisei.athanasiaapp.services.SaleService;
+import com.fisei.athanasiaapp.objects.AthanasiaGlobal_DIAS;
+import com.fisei.athanasiaapp.objects.Order_DIAS;
+import com.fisei.athanasiaapp.services.SaleService_DIAS;
 
 import org.json.JSONObject;
 
@@ -27,7 +24,7 @@ import java.util.List;
 
 public class MyOrdersFragment extends Fragment {
 
-    private List<Order> myOrderList = new ArrayList<>();
+    private List<Order_DIAS> myOrderDIASList = new ArrayList<>();
     private OrderArrayAdapter orderArrayAdapter;
     private ListView listView;
     private Bundle bundle = new Bundle();
@@ -48,7 +45,7 @@ public class MyOrdersFragment extends Fragment {
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_my_orders, container, false);
         listView = (ListView) view.findViewById(R.id.listViewMyOrdersFragment);
-        orderArrayAdapter = new OrderArrayAdapter(getContext(), myOrderList);
+        orderArrayAdapter = new OrderArrayAdapter(getContext(), myOrderDIASList);
         GetOrderTask getOrderTask = new GetOrderTask();
         getOrderTask.execute();
 
@@ -57,18 +54,18 @@ public class MyOrdersFragment extends Fragment {
     class GetOrderTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... params) {
-            myOrderList.clear();
-            if(AthanasiaGlobal.ADMIN_PRIVILEGES){
-                myOrderList = SaleService.GetAllSales();
+            myOrderDIASList.clear();
+            if(AthanasiaGlobal_DIAS.ADMIN_PRIVILEGES){
+                myOrderDIASList = SaleService_DIAS.GetAllSales();
             } else {
-                myOrderList = SaleService.GetSalesByUserID();
+                myOrderDIASList = SaleService_DIAS.GetSalesByUserID();
             }
             return null;
         }
         @Override
         protected void onPostExecute(JSONObject jsonObject){
             orderArrayAdapter.clear();
-            orderArrayAdapter.addAll(myOrderList);
+            orderArrayAdapter.addAll(myOrderDIASList);
             orderArrayAdapter.notifyDataSetChanged();
             listView.setAdapter(orderArrayAdapter);
         }

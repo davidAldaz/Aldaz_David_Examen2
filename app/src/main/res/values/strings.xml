@@ -20,7 +20,7 @@
     <string name="hint_cedula">10 digits</string>
     <string name="fields_empty_error">One or more fields are empty</string>
     //Products Fragment
-    <string name="product_image_description">Image that show the product</string>
+    <string name="product_image_description">Image that show the productDIAS</string>
     <string name="read_error">Unable to read products data.</string>
     <string name="connect_error">Unable to connect to AthanasiaApi.</string>
     <string name="label_add_to_Cart">Add to cart the item</string>

@@ -17,12 +17,12 @@ import android.widget.Toast;
 import com.fisei.athanasiaapp.R;
 import com.fisei.athanasiaapp.adapters.ShopItemArrayAdapter;
 import com.fisei.athanasiaapp.dialog.CheckoutDialogFragment_DIAS;
-import com.fisei.athanasiaapp.models.SaleDetails;
-import com.fisei.athanasiaapp.models.SaleRequest;
-import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
-import com.fisei.athanasiaapp.objects.ShopCartItem;
-import com.fisei.athanasiaapp.services.SaleService;
-import com.fisei.athanasiaapp.services.ShoppingCartService;
+import com.fisei.athanasiaapp.models.SaleDetails_DIAS;
+import com.fisei.athanasiaapp.models.SaleRequest_DIAS;
+import com.fisei.athanasiaapp.objects.AthanasiaGlobal_DIAS;
+import com.fisei.athanasiaapp.objects.ShopCartItem_DIAS;
+import com.fisei.athanasiaapp.services.SaleService_DIAS;
+import com.fisei.athanasiaapp.services.ShoppingCartService_DIAS;
 
 import org.json.JSONObject;
 
@@ -51,7 +51,7 @@ public class ShopCartFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         setHasOptionsMenu(true);
         View view = inflater.inflate(R.layout.fragment_shop_cart, container, false);
-        List<ShopCartItem> list = new ArrayList<>();
+        List<ShopCartItem_DIAS> list = new ArrayList<>();
         checkout = view.findViewById(R.id.btnCheckout);
         saveCart = view.findViewById(R.id.btnSaveCart);
         listView = (ListView) view.findViewById(R.id.listViewShopCartFragment);
@@ -61,7 +61,7 @@ public class ShopCartFragment extends Fragment {
         checkout.setOnClickListener(view1 -> { OpenDialog(); });
         saveCart.setOnClickListener(view1 -> { ExecuteSaveCartTask();});
         itemArrayAdapter.clear();
-        list = AthanasiaGlobal.SHOPPING_CART;
+        list = AthanasiaGlobal_DIAS.SHOPPING_CART;
         itemArrayAdapter.addAll(list);
         itemArrayAdapter.notifyDataSetChanged();
         listView.setAdapter(itemArrayAdapter);
@@ -85,7 +85,7 @@ public class ShopCartFragment extends Fragment {
     }
     private void UpdateTotalView(TextView totalView){
         double total = 0;
-        for (ShopCartItem item: AthanasiaGlobal.SHOPPING_CART) {
+        for (ShopCartItem_DIAS item: AthanasiaGlobal_DIAS.SHOPPING_CART) {
             total += item.UnitPrice * item.Quantity;
         }
         total *= 1.1;
@@ -110,22 +110,22 @@ public class ShopCartFragment extends Fragment {
     class AddSaleTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... params) {
-            SaleRequest sale = new SaleRequest();
-            List<SaleDetails> details = new ArrayList<>();
-            for (ShopCartItem item: AthanasiaGlobal.SHOPPING_CART) {
-                details.add(new SaleDetails(item.Id, item.Quantity));
+            SaleRequest_DIAS sale = new SaleRequest_DIAS();
+            List<SaleDetails_DIAS> details = new ArrayList<>();
+            for (ShopCartItem_DIAS item: AthanasiaGlobal_DIAS.SHOPPING_CART) {
+                details.add(new SaleDetails_DIAS(item.Id, item.Quantity));
             }
-            sale.UserClientID = AthanasiaGlobal.ACTUAL_USER.ID;
-            sale.SaleDetails = details;
-            SuccesfulSale = SaleService.AddNewSale(sale);
-            ShoppingCartService.DeleteCart(AthanasiaGlobal.ACTUAL_USER.ID);
+            sale.UserClientID = AthanasiaGlobal_DIAS.ACTUAL_USER.ID;
+            sale.SaleDetails_DIAS = details;
+            SuccesfulSale = SaleService_DIAS.AddNewSale(sale);
+            ShoppingCartService_DIAS.DeleteCart(AthanasiaGlobal_DIAS.ACTUAL_USER.ID);
             return null;
         }
         @Override
         protected void onPostExecute(JSONObject jsonObject){
             if(SuccesfulSale){
                 Toast.makeText(getContext(), "Succesful Sale", Toast.LENGTH_SHORT).show();
-                AthanasiaGlobal.SHOPPING_CART.clear();
+                AthanasiaGlobal_DIAS.SHOPPING_CART.clear();
                 itemArrayAdapter.UpdateArrayAdapter();
             } else {
                 Toast.makeText(getContext(), "Failed Sale", Toast.LENGTH_SHORT).show();
@@ -136,7 +136,7 @@ public class ShopCartFragment extends Fragment {
     class SaveCartTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... params) {
-            SuccesfulSale = ShoppingCartService.SaveCart(AthanasiaGlobal.SHOPPING_CART, AthanasiaGlobal.ACTUAL_USER.ID);
+            SuccesfulSale = ShoppingCartService_DIAS.SaveCart(AthanasiaGlobal_DIAS.SHOPPING_CART, AthanasiaGlobal_DIAS.ACTUAL_USER.ID);
             return null;
         }
         @Override

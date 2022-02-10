@@ -10,15 +10,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.fisei.athanasiaapp.objects.OrderDetail;
+import com.fisei.athanasiaapp.objects.OrderDetail_DIAS;
 import com.fisei.athanasiaapp.R;
-import com.fisei.athanasiaapp.services.ImageService;
+import com.fisei.athanasiaapp.services.ImageService_DIAS;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class OrderDetailsArrayAdapter extends ArrayAdapter<OrderDetail> {
+public class OrderDetailsArrayAdapter extends ArrayAdapter<OrderDetail_DIAS> {
     private static class ViewHolder{
         TextView orderDetailNameTextView;
         TextView orderDetailQuantityTextView;
@@ -26,11 +26,11 @@ public class OrderDetailsArrayAdapter extends ArrayAdapter<OrderDetail> {
         ImageView orderDetailImageView;
     }
     private final Map<String, Bitmap> bitmaps = new HashMap<>();
-    public OrderDetailsArrayAdapter(Context context, List<OrderDetail> orderDetailList){
-        super(context, -1, orderDetailList);
+    public OrderDetailsArrayAdapter(Context context, List<OrderDetail_DIAS> orderDetailDIASList){
+        super(context, -1, orderDetailDIASList);
     }
     public View getView(int position, View convertView, ViewGroup parent){
-        OrderDetail orderDetail = getItem(position);
+        OrderDetail_DIAS orderDetailDIAS = getItem(position);
         ViewHolder viewHolder;
         if(convertView == null){
             viewHolder = new ViewHolder();
@@ -44,14 +44,14 @@ public class OrderDetailsArrayAdapter extends ArrayAdapter<OrderDetail> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if(bitmaps.containsKey(orderDetail.ImageURL)){
-            viewHolder.orderDetailImageView.setImageBitmap(bitmaps.get(orderDetail.ImageURL));
+        if(bitmaps.containsKey(orderDetailDIAS.ImageURL)){
+            viewHolder.orderDetailImageView.setImageBitmap(bitmaps.get(orderDetailDIAS.ImageURL));
         } else {
-            new LoadImageTask(viewHolder.orderDetailImageView).execute(orderDetail.ImageURL);
+            new LoadImageTask(viewHolder.orderDetailImageView).execute(orderDetailDIAS.ImageURL);
         }
-        viewHolder.orderDetailNameTextView.setText(orderDetail.Name);
-        viewHolder.orderDetailQuantityTextView.setText(String.format("%s", orderDetail.Quantity));
-        viewHolder.orderDetailUnitPriceTextView.setText(String.format("%s", orderDetail.UnitPrice) + " $");
+        viewHolder.orderDetailNameTextView.setText(orderDetailDIAS.Name);
+        viewHolder.orderDetailQuantityTextView.setText(String.format("%s", orderDetailDIAS.Quantity));
+        viewHolder.orderDetailUnitPriceTextView.setText(String.format("%s", orderDetailDIAS.UnitPrice) + " $");
         return convertView;
     }
     private class LoadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -61,7 +61,7 @@ public class OrderDetailsArrayAdapter extends ArrayAdapter<OrderDetail> {
         }
         @Override
         protected Bitmap doInBackground(String... params){
-            Bitmap bitmap = ImageService.GetImageByURL(params[0]);
+            Bitmap bitmap = ImageService_DIAS.GetImageByURL(params[0]);
             bitmaps.put(params[0], bitmap);
             return bitmap;
         }

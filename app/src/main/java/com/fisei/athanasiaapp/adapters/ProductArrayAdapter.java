@@ -16,12 +16,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.fisei.athanasiaapp.R;
-import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
-import com.fisei.athanasiaapp.objects.Product;
-import com.fisei.athanasiaapp.objects.ShopCartItem;
-import com.fisei.athanasiaapp.services.ImageService;
+import com.fisei.athanasiaapp.objects.AthanasiaGlobal_DIAS;
+import com.fisei.athanasiaapp.objects.Product_DIAS;
+import com.fisei.athanasiaapp.objects.ShopCartItem_DIAS;
+import com.fisei.athanasiaapp.services.ImageService_DIAS;
 
-public class ProductArrayAdapter extends ArrayAdapter<Product> {
+public class ProductArrayAdapter extends ArrayAdapter<Product_DIAS> {
 
     /*Define los atributos de las vistas de los productos.
         Un ImageView para la imagen del producto y TextViews para campos
@@ -38,11 +38,11 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
     //Renderizar la imagen.
     private final Map<String, Bitmap> bitmaps = new HashMap<>();
     //Constructor
-    public ProductArrayAdapter(Context context, List<Product> productsList){
+    public ProductArrayAdapter(Context context, List<Product_DIAS> productsList){
         super(context, -1, productsList);
     }
     public View getView(int position, View convertView, ViewGroup parent){
-        Product product = getItem(position);
+        Product_DIAS productDIAS = getItem(position);
         ViewHolder viewHolder;
         if(convertView == null){
             viewHolder = new ViewHolder();
@@ -57,18 +57,18 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        if(bitmaps.containsKey(product.imageURL)){
-            viewHolder.productImageView.setImageBitmap(bitmaps.get(product.imageURL));
+        if(bitmaps.containsKey(productDIAS.imageURL)){
+            viewHolder.productImageView.setImageBitmap(bitmaps.get(productDIAS.imageURL));
         } else {
-            new LoadImageTask(viewHolder.productImageView).execute(product.imageURL);
+            new LoadImageTask(viewHolder.productImageView).execute(productDIAS.imageURL);
         }
-        viewHolder.productNameView.setText(product.name);
-        viewHolder.productUnitPriceView.setText(String.format("%s", product.unitPrice + " $"));
-        viewHolder.productQtyView.setText(String.format("%s", product.quantity));
-        UnableButton(viewHolder.productAddToCartButton, RememberIfButtonWasSelected(product.id));
+        viewHolder.productNameView.setText(productDIAS.name);
+        viewHolder.productUnitPriceView.setText(String.format("%s", productDIAS.unitPrice + " $"));
+        viewHolder.productQtyView.setText(String.format("%s", productDIAS.quantity));
+        UnableButton(viewHolder.productAddToCartButton, RememberIfButtonWasSelected(productDIAS.id));
         viewHolder.productAddToCartButton.setOnClickListener(view -> {
             UnableButton(viewHolder.productAddToCartButton, false);
-            AddToShoppingCart(product);
+            AddToShoppingCart(productDIAS);
         });
         return convertView;
     }
@@ -79,7 +79,7 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
         }
         @Override
         protected Bitmap doInBackground(String... params){
-            Bitmap bitmap = ImageService.GetImageByURL(params[0]);
+            Bitmap bitmap = ImageService_DIAS.GetImageByURL(params[0]);
             bitmaps.put(params[0], bitmap);
             return bitmap;
         }
@@ -92,15 +92,15 @@ public class ProductArrayAdapter extends ArrayAdapter<Product> {
             btn.setEnabled(b);
     }
     private Boolean RememberIfButtonWasSelected(int id){
-        for (ShopCartItem item: AthanasiaGlobal.SHOPPING_CART) {
+        for (ShopCartItem_DIAS item: AthanasiaGlobal_DIAS.SHOPPING_CART) {
             if (item.Id == id) {
                 return false;
             }
         }
         return true;
     }
-    private void AddToShoppingCart(Product p){
-        AthanasiaGlobal.SHOPPING_CART.add(new ShopCartItem(p.id, p.name, p.imageURL, 1, p.unitPrice, p.quantity));
+    private void AddToShoppingCart(Product_DIAS p){
+        AthanasiaGlobal_DIAS.SHOPPING_CART.add(new ShopCartItem_DIAS(p.id, p.name, p.imageURL, 1, p.unitPrice, p.quantity));
         Toast.makeText(getContext(), "Item " + p.name + " added to cart", Toast.LENGTH_SHORT).show();
     }
 }

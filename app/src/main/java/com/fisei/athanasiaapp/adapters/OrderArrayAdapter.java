@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 import com.fisei.athanasiaapp.OrderDetailsActivity_DIAS;
 import com.fisei.athanasiaapp.R;
-import com.fisei.athanasiaapp.objects.Order;
+import com.fisei.athanasiaapp.objects.Order_DIAS;
 import com.fisei.athanasiaapp.utilities.Utils;
 
 import java.util.List;
 
-public class OrderArrayAdapter extends ArrayAdapter<Order> {
+public class OrderArrayAdapter extends ArrayAdapter<Order_DIAS> {
     private static class ViewHolder{
         TextView orderDateView;
         TextView orderIDView;
@@ -24,12 +24,12 @@ public class OrderArrayAdapter extends ArrayAdapter<Order> {
         Button orderInfoBtn;
     }
 
-    public OrderArrayAdapter(Context context, List<Order> orderList) {
-        super(context, -1, orderList);
+    public OrderArrayAdapter(Context context, List<Order_DIAS> orderDIASList) {
+        super(context, -1, orderDIASList);
     }
 
     public View getView(int position, View convertView, ViewGroup parent){
-        Order order = getItem(position);
+        Order_DIAS orderDIAS = getItem(position);
         ViewHolder viewHolder;
         if(convertView == null){
             viewHolder = new ViewHolder();
@@ -43,21 +43,21 @@ public class OrderArrayAdapter extends ArrayAdapter<Order> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.orderDateView.setText(Utils.ConvertDate(order.Date));
-        viewHolder.orderIDView.setText(String.format("%s", order.ID));
-        viewHolder.orderTotalView.setText(String.format("%s", order.Total + " $"));
+        viewHolder.orderDateView.setText(Utils.ConvertDate(orderDIAS.Date));
+        viewHolder.orderIDView.setText(String.format("%s", orderDIAS.ID));
+        viewHolder.orderTotalView.setText(String.format("%s", orderDIAS.Total + " $"));
         viewHolder.orderInfoBtn.setOnClickListener(view -> {
-            ShowOrderDetails(order);
+            ShowOrderDetails(orderDIAS);
         });
         return convertView;
     }
 
-    private void ShowOrderDetails(Order order){
+    private void ShowOrderDetails(Order_DIAS orderDIAS){
         Intent orderDetails = new Intent(getContext(), OrderDetailsActivity_DIAS.class);
-        orderDetails.putExtra("orderID", order.ID);
-        orderDetails.putExtra("orderUserClient", order.UserClientID);
-        orderDetails.putExtra("orderDate", order.Date);
-        orderDetails.putExtra("orderTotal", order.Total);
+        orderDetails.putExtra("orderID", orderDIAS.ID);
+        orderDetails.putExtra("orderUserClient", orderDIAS.UserClientID);
+        orderDetails.putExtra("orderDate", orderDIAS.Date);
+        orderDetails.putExtra("orderTotal", orderDIAS.Total);
         getContext().startActivity(orderDetails);
     }
 }

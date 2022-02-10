@@ -9,14 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
-import com.fisei.athanasiaapp.objects.Product;
-import com.fisei.athanasiaapp.objects.ShopCartItem;
-import com.fisei.athanasiaapp.objects.UserClient;
-import com.fisei.athanasiaapp.services.ProductService;
-import com.fisei.athanasiaapp.services.ShoppingCartService;
-import com.fisei.athanasiaapp.services.UserAdminService;
-import com.fisei.athanasiaapp.services.UserClientService;
+import com.fisei.athanasiaapp.objects.AthanasiaGlobal_DIAS;
+import com.fisei.athanasiaapp.objects.Product_DIAS;
+import com.fisei.athanasiaapp.objects.ShopCartItem_DIAS;
+import com.fisei.athanasiaapp.objects.UserClient_DIAS;
+import com.fisei.athanasiaapp.services.ProductService_DIAS;
+import com.fisei.athanasiaapp.services.ShoppingCartService_DIAS;
+import com.fisei.athanasiaapp.services.UserAdminService_DIAS;
+import com.fisei.athanasiaapp.services.UserClientService_DIAS;
 import org.json.JSONObject;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class LoginActivity_DIAS extends AppCompatActivity {
     private EditText passwdEditText;
     private TextView warningTextView;
 
-    private UserClient user;
+    private UserClient_DIAS user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +54,14 @@ public class LoginActivity_DIAS extends AppCompatActivity {
     private class LoginTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... urls) {
-            user = UserClientService.Login(emailEditText.getText().toString(), passwdEditText.getText().toString());
+            user = UserClientService_DIAS.Login(emailEditText.getText().toString(), passwdEditText.getText().toString());
             return null;
         }
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             if(user.JWT != null){
-                AthanasiaGlobal.ACTUAL_USER.JWT = user.JWT;
-                AthanasiaGlobal.ACTUAL_USER.ID = user.ID;
+                AthanasiaGlobal_DIAS.ACTUAL_USER.JWT = user.JWT;
+                AthanasiaGlobal_DIAS.ACTUAL_USER.ID = user.ID;
                 GetUserCartTask getUserCartTask = new GetUserCartTask();
                 getUserCartTask.execute();
             } else {
@@ -72,15 +72,15 @@ public class LoginActivity_DIAS extends AppCompatActivity {
     private class LoginAdminTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... urls) {
-            user = UserAdminService.Login(emailEditText.getText().toString(), passwdEditText.getText().toString());
+            user = UserAdminService_DIAS.Login(emailEditText.getText().toString(), passwdEditText.getText().toString());
             return null;
         }
 
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             if(user.JWT != null){
-                AthanasiaGlobal.ACTUAL_USER.JWT = user.JWT;
-                AthanasiaGlobal.ADMIN_PRIVILEGES = true;
+                AthanasiaGlobal_DIAS.ACTUAL_USER.JWT = user.JWT;
+                AthanasiaGlobal_DIAS.ADMIN_PRIVILEGES = true;
                 StartAthanasiaActivity();
             } else {
                 warningTextView.setText(R.string.label_wrong_email_password);
@@ -90,16 +90,16 @@ public class LoginActivity_DIAS extends AppCompatActivity {
     private class GetUserCartTask extends AsyncTask<URL, Void, JSONObject> {
         @Override
         protected JSONObject doInBackground(URL... urls) {
-            AthanasiaGlobal.SHOPPING_CART = ShoppingCartService.GetShopCartFromUserLogged(user.ID);
-            List<ShopCartItem> tempList = new ArrayList<>();
-            for (ShopCartItem item: AthanasiaGlobal.SHOPPING_CART) {
-                Product p = ProductService.GetSpecifiedProductByID(item.Id);
+            AthanasiaGlobal_DIAS.SHOPPING_CART = ShoppingCartService_DIAS.GetShopCartFromUserLogged(user.ID);
+            List<ShopCartItem_DIAS> tempList = new ArrayList<>();
+            for (ShopCartItem_DIAS item: AthanasiaGlobal_DIAS.SHOPPING_CART) {
+                Product_DIAS p = ProductService_DIAS.GetSpecifiedProductByID(item.Id);
                 if(p.quantity < item.Quantity){
                     item.Quantity = 1;
                 }
-                tempList.add(new ShopCartItem(p.id, p.name, p.imageURL, item.Quantity, p.unitPrice, p.quantity));
+                tempList.add(new ShopCartItem_DIAS(p.id, p.name, p.imageURL, item.Quantity, p.unitPrice, p.quantity));
             }
-            AthanasiaGlobal.SHOPPING_CART = tempList;
+            AthanasiaGlobal_DIAS.SHOPPING_CART = tempList;
             return null;
         }
         @Override

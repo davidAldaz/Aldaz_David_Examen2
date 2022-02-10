@@ -1,6 +1,6 @@
 package com.fisei.athanasiaapp.services;
 
-import com.fisei.athanasiaapp.objects.UserClient;
+import com.fisei.athanasiaapp.objects.UserClient_DIAS;
 import com.fisei.athanasiaapp.utilities.URLs;
 
 import org.json.JSONException;
@@ -14,9 +14,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class UserAdminService {
-    public static UserClient Login(String email, String passwd){
-        UserClient user = new UserClient();
+public class UserAdminService_DIAS {
+    public static UserClient_DIAS Login(String email, String passwd){
+        UserClient_DIAS user = new UserClient_DIAS();
         HttpURLConnection connection = null;
         try {
             URL url = new URL(URLs.LOGIN_ADMIN);

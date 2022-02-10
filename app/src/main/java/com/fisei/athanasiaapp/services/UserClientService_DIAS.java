@@ -1,9 +1,9 @@
 package com.fisei.athanasiaapp.services;
 
-import com.fisei.athanasiaapp.models.ResponseAthanasia;
-import com.fisei.athanasiaapp.objects.AthanasiaGlobal;
+import com.fisei.athanasiaapp.models.ResponseAthanasia_DIAS;
+import com.fisei.athanasiaapp.objects.AthanasiaGlobal_DIAS;
 import com.fisei.athanasiaapp.utilities.URLs;
-import com.fisei.athanasiaapp.objects.UserClient;
+import com.fisei.athanasiaapp.objects.UserClient_DIAS;
 import com.fisei.athanasiaapp.utilities.Utils;
 
 import org.json.JSONArray;
@@ -17,10 +17,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class UserClientService {
+public class UserClientService_DIAS {
 
-    public static UserClient Login(String email, String passwd){
-        UserClient user = new UserClient();
+    public static UserClient_DIAS Login(String email, String passwd){
+        UserClient_DIAS user = new UserClient_DIAS();
         HttpURLConnection connection = null;
         try {
             URL url = new URL(URLs.LOGIN);
@@ -62,13 +62,13 @@ public class UserClientService {
         }
         return user;
     }
-    public static UserClient GetUserInfoByID(int id){
-        UserClient user = new UserClient();
+    public static UserClient_DIAS GetUserInfoByID(int id){
+        UserClient_DIAS user = new UserClient_DIAS();
         HttpURLConnection connection = null;
         try{
             URL url = new URL(URLs.CLIENT_BY_ID + id);
             connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestProperty("Authorization","Bearer " + AthanasiaGlobal.ACTUAL_USER.JWT);
+            connection.setRequestProperty("Authorization","Bearer " + AthanasiaGlobal_DIAS.ACTUAL_USER.JWT);
             int responseCode = connection.getResponseCode();
             StringBuilder response = new StringBuilder();
             if(responseCode == HttpURLConnection.HTTP_OK){
@@ -94,8 +94,8 @@ public class UserClientService {
         }
         return user;
     }
-    public static ResponseAthanasia SignUpNewUser(UserClient newUser, String newPasswd){
-        ResponseAthanasia responseAth = new ResponseAthanasia(false, "An unexpected error ocurred");
+    public static ResponseAthanasia_DIAS SignUpNewUser(UserClient_DIAS newUser, String newPasswd){
+        ResponseAthanasia_DIAS responseAth = new ResponseAthanasia_DIAS(false, "An unexpected error ocurred");
         HttpURLConnection connection = null;
         try{
             URL url = new URL(URLs.SIGN_UP);
