@@ -39,6 +39,10 @@ public class LoginActivity_DIAS extends AppCompatActivity {
         InitializeViewComponents();
     }
     private void Login(){
+        warningTextView.setText("");
+        LoginTask loginTask = new LoginTask();
+        loginTask.execute();
+        /*
             this.validatePasswd = passwdEditText.getText().toString();
             if(validatePasswd.length() < 6 || validatePasswd.length() > 10){
                 warningTextView.setText("La contraseña debe contener \n mínimo 6 caracteres y máximo 10");
@@ -48,11 +52,17 @@ public class LoginActivity_DIAS extends AppCompatActivity {
                 warningTextView.setText("Debe ingresar al menos un número");
             }else if(!validatePasswd.matches(".*[a-z].*")) {
                 warningTextView.setText("Debe contener una letra minúscula");
-            }else
+            }else if(!validatePasswd.matches(".*[A-Z].*")) {
+                warningTextView.setText("Debe contener una letra mayúscula");
+            }else if(!validatePasswd.matches(".*\\s.*")) {
+                warningTextView.setText("No se permiten espacios");
+            }else{
                 warningTextView.setText("");
                 LoginTask loginTask = new LoginTask();
                 loginTask.execute();
             }
+
+         */
     }
     private Boolean LoginAdmin(){
             warningTextView.setText("");
