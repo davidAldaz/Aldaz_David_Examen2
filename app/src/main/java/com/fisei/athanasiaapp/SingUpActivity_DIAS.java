@@ -72,29 +72,27 @@ public class SingUpActivity_DIAS extends AppCompatActivity {
     private void SignUp(){
         validatePasswd = editTextPassword.getText().toString();
         validateCedula = editTextCedula.getText().toString();
-        firstCharCed = Integer.parseInt(editTextCedula.getText().toString());
+
         if(editTextEmail.getText().toString().isEmpty() || editTextName.getText().toString().isEmpty() ||
                 editTextCedula.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty()){
             errorTextView.setText(R.string.fields_empty_error);
         }else if(validatePasswd.length() < 6 || validatePasswd.length() > 10){
-            errorTextView.setText("La contraseña debe contener \n mínimo 6 caracteres y máximo 10");
+                errorTextView.setText("La contraseña debe contener \n mínimo 6 caracteres y máximo 10");
         }else if(!validatePasswd.matches(".*[!@#$%^&*+=?-].*")) {
-            errorTextView.setText("Debe ingresar al menos un caracter especial");
+                errorTextView.setText("Contraseña: Debe ingresar al menos un caracter especial");
         }else if(!validatePasswd.matches(".*\\d.*")) {
-            errorTextView.setText("Debe ingresar al menos un número");
+                errorTextView.setText("Contraseña: Debe ingresar al menos un número");
         }else if(!validatePasswd.matches(".*[a-z].*")) {
-            errorTextView.setText("Debe contener una letra minúscula");
+                errorTextView.setText("Contraseña: Debe contener una letra minúscula");
         }else if(!validatePasswd.matches(".*[A-Z].*")) {
-            errorTextView.setText("Debe contener una letra mayúscula");
+                errorTextView.setText("Contraseña: Debe contener una letra mayúscula");
         }else if(validateCedula.length() < 10 || validateCedula.length() > 10) {
             errorTextView.setText("Ingrese una cédula válida");
-        }else if(firstCharCed < 1 && firstCharCed > 24){
-            errorTextView.setText("Cédula no corresponde a Ecuador");
         }else {
-            errorTextView.setText("Validado");
-            //errorTextView.setText("");
-            //SignUpTask signUpTask = new SignUpTask();
-            //signUpTask.execute();
+                errorTextView.setText("Validado");
+                //errorTextView.setText("");
+                //SignUpTask signUpTask = new SignUpTask();
+                //signUpTask.execute();
         }
     }
 
