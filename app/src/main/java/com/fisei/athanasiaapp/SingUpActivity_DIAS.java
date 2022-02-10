@@ -68,10 +68,11 @@ public class SingUpActivity_DIAS extends AppCompatActivity {
         buttonSignUp.setOnClickListener(signUpButtonClicked);
     }
     private void SignUp(){
+        validatePasswd = editTextPassword.getText().toString();
         if(editTextEmail.getText().toString().isEmpty() || editTextName.getText().toString().isEmpty() ||
                 editTextCedula.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty()){
             errorTextView.setText(R.string.fields_empty_error);
-        }if(validatePasswd.length() < 6 || validatePasswd.length() > 10){
+        }else if(validatePasswd.length() < 6 || validatePasswd.length() > 10){
             errorTextView.setText("La contraseña debe contener \n mínimo 6 caracteres y máximo 10");
         }else if(!validatePasswd.matches(".*[!@#$%^&*+=?-].*")) {
             errorTextView.setText("Debe ingresar al menos un caracter especial");
@@ -82,9 +83,10 @@ public class SingUpActivity_DIAS extends AppCompatActivity {
         }else if(!validatePasswd.matches(".*[A-Z].*")) {
             errorTextView.setText("Debe contener una letra mayúscula");
         }else {
-            errorTextView.setText("");
-            SignUpTask signUpTask = new SignUpTask();
-            signUpTask.execute();
+            errorTextView.setText("Validado");
+            //errorTextView.setText("");
+            //SignUpTask signUpTask = new SignUpTask();
+            //signUpTask.execute();
         }
     }
     private void StartLoginActivity(){
