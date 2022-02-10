@@ -81,8 +81,6 @@ public class SingUpActivity_DIAS extends AppCompatActivity {
             errorTextView.setText("Debe contener una letra minúscula");
         }else if(!validatePasswd.matches(".*[A-Z].*")) {
             errorTextView.setText("Debe contener una letra mayúscula");
-        }else if(!validatePasswd.matches(".*\\s.*")) {
-            errorTextView.setText("No se permiten espacios");
         }else {
             errorTextView.setText("");
             SignUpTask signUpTask = new SignUpTask();
