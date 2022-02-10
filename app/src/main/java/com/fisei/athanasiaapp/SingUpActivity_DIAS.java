@@ -29,6 +29,7 @@ public class SingUpActivity_DIAS extends AppCompatActivity {
     private Button buttonSignUp;
     private ResponseAthanasia_DIAS responseTask = new ResponseAthanasia_DIAS(false, "");
 
+    private String validatePasswd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +71,19 @@ public class SingUpActivity_DIAS extends AppCompatActivity {
         if(editTextEmail.getText().toString().isEmpty() || editTextName.getText().toString().isEmpty() ||
                 editTextCedula.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty()){
             errorTextView.setText(R.string.fields_empty_error);
-        } else {
+        }if(validatePasswd.length() < 6 || validatePasswd.length() > 10){
+            errorTextView.setText("La contraseña debe contener \n mínimo 6 caracteres y máximo 10");
+        }else if(!validatePasswd.matches(".*[!@#$%^&*+=?-].*")) {
+            errorTextView.setText("Debe ingresar al menos un caracter especial");
+        }else if(!validatePasswd.matches(".*\\d.*")) {
+            errorTextView.setText("Debe ingresar al menos un número");
+        }else if(!validatePasswd.matches(".*[a-z].*")) {
+            errorTextView.setText("Debe contener una letra minúscula");
+        }else if(!validatePasswd.matches(".*[A-Z].*")) {
+            errorTextView.setText("Debe contener una letra mayúscula");
+        }else if(!validatePasswd.matches(".*\\s.*")) {
+            errorTextView.setText("No se permiten espacios");
+        }else {
             errorTextView.setText("");
             SignUpTask signUpTask = new SignUpTask();
             signUpTask.execute();
