@@ -25,7 +25,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fisei.athanasiaapp.databinding.ActAthanasiaBinding;
+//import com.fisei.athanasiaapp.databinding.ActAthanasiaBinding;
 
 import org.json.JSONObject;
 
