@@ -37,6 +37,7 @@ public class LoginActivity_DIAS extends AppCompatActivity {
         InitializeViewComponents();
     }
     private void Login(){
+            /////7
             warningTextView.setText("");
             LoginTask loginTask = new LoginTask();
             loginTask.execute();
