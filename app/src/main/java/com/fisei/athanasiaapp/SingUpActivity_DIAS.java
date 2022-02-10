@@ -87,12 +87,11 @@ public class SingUpActivity_DIAS extends AppCompatActivity {
         }else if(!validatePasswd.matches(".*[A-Z].*")) {
                 errorTextView.setText("Contraseña: Debe contener una letra mayúscula");
         }else if(validateCedula.length() < 10 || validateCedula.length() > 10) {
-            errorTextView.setText("Ingrese una cédula válida");
+                errorTextView.setText("Ingrese una cédula válida");
         }else {
-                errorTextView.setText("Validado");
-                //errorTextView.setText("");
-                //SignUpTask signUpTask = new SignUpTask();
-                //signUpTask.execute();
+                errorTextView.setText("");
+                SignUpTask signUpTask = new SignUpTask();
+                signUpTask.execute();
         }
     }
 
