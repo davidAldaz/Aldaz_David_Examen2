@@ -70,6 +70,7 @@ public class SingUpActivity_DIAS extends AppCompatActivity {
     private void SignUp(){
         validatePasswd = editTextPassword.getText().toString();
         String validateCedula = editTextCedula.getText().toString();
+        String firstCharCed = editTextCedula.getText().toString().substring(0,2);
         if(editTextEmail.getText().toString().isEmpty() || editTextName.getText().toString().isEmpty() ||
                 editTextCedula.getText().toString().isEmpty() || editTextPassword.getText().toString().isEmpty()){
             errorTextView.setText(R.string.fields_empty_error);
@@ -83,8 +84,10 @@ public class SingUpActivity_DIAS extends AppCompatActivity {
             errorTextView.setText("Debe contener una letra minúscula");
         }else if(!validatePasswd.matches(".*[A-Z].*")) {
             errorTextView.setText("Debe contener una letra mayúscula");
-        }else if(validateCedula.length() < 10 || validateCedula.length() > 10){
+        }else if(validateCedula.length() < 10 || validateCedula.length() > 10) {
             errorTextView.setText("Ingrese una cédula válida");
+        }else if(validateCedula.matches(".")){
+            errorTextView.setText("Número de cédula no válido");
         }else {
             errorTextView.setText("Validado");
             //errorTextView.setText("");
